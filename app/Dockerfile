@@ -3,7 +3,7 @@
 FROM python:3.9.5
 
 # build from `app` folder
-WORKDIR .
+WORKDIR /SynologyDrive/dikart/pricing/docker/app/
 
 COPY requirements.txt requirements.txt
 
@@ -35,4 +35,6 @@ RUN pip install -r requirements.txt
 COPY ../.. .
 
 #CMD [ "python", "app/casts.py"]
-CMD [ "python", "casts.py"]
+#CMD [ "python", "casts.py"]
+EXPOSE 8000
+CMD [ "uvicorn", "pricing_server:app", "--host", "0.0.0.0", "--port", "8080"]
