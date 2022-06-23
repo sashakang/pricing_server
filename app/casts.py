@@ -38,7 +38,7 @@ def main():
             server = f.readline().split()[1]
             login = f.readline().split()[1]
             password = f.readline().split()[1]
-            print(f'{server=}\n{login=}\n{password=}')
+            print(f'{server=}\n{login=}')
 
         engine = sqlalchemy.create_engine(
             f'mssql+pyodbc://{login}:{password}@{server}/'
