@@ -37,6 +37,7 @@ COPY ../.. .
 #CMD [ "python", "app/casts.py"]
 #CMD [ "python", "casts.py"]
 EXPOSE 8000
+ENTRYPOINT [ ]
 CMD ["uvicorn", "pricing_server:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 # CMD [ "uvicorn", "pricing_server:app"]
-# CMD [ "python", "pricing_server.py" ]         # same, starts, but not accessible
+# CMD [ "python", "pricing_server.py" ]         # same,

@@ -22,7 +22,8 @@ app = FastAPI(debug=True)
 
 @app.get("/test")
 def testing():
-    engine = get_engine('server_credentials')
+    engine = get_engine('app/server_credentials')
+    print(engine)
     punches = pd.read_sql('''
         -- all items
             SELECT
@@ -103,4 +104,4 @@ if __name__ == '__main__':
     print('Timestamp:', dt.strftime(dt.now(), "%d/%m/%y %H:%M:%S") + "+03:00")
     mn()
 
-    uvicorn.run('pricing_server:app', host='127.0.0.1', port=8000)
+    uvicorn.run('pricing_server:app', host='127.0.0.1', reload=True)
