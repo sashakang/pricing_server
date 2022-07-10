@@ -22,7 +22,12 @@ app = FastAPI(debug=True)
 
 @app.get("/test")
 def testing():
-    engine = get_engine('app/server_credentials')
+    print('Got TEST')
+    print(f'{os.getcwd()=}')
+    engine = get_engine(
+        fname='./app/server_credentials',
+        db='prod_unf'
+    )
     print(engine)
     punches = pd.read_sql('''
         -- all items
