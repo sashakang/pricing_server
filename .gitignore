@@ -1,3 +1,5 @@
 *.*
 */venv/*
 */credentials/*
+*/*credentials.*
+app/server_credentials

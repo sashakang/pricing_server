@@ -33,12 +33,12 @@ def main():
         for root, dirs, files in os.walk('..'):
             if fname in files:
                 path = os.path.join(root, fname)
-                print(path)
+                print(f'{path=}') 
         with open(path, 'r') as f:
             server = f.readline().split()[1]
             login = f.readline().split()[1]
             password = f.readline().split()[1]
-            print(f'{server=}\n{login=}\n{password=}')
+            print(f'{server=}\n{login=}')
 
         engine = sqlalchemy.create_engine(
             f'mssql+pyodbc://{login}:{password}@{server}/'

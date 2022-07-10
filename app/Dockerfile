@@ -16,7 +16,7 @@ RUN apt-get install -y --no-install-recommends \
         locales \
         apt-transport-https
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
-    && locale-gen \
+    && locale-gen 
 #RUN apt-get install libodbc1
 #RUN apt-get -y install odbcinst1debian2
 #RUN apt-get -y install unixodbc
@@ -37,4 +37,7 @@ COPY ../.. .
 #CMD [ "python", "app/casts.py"]
 #CMD [ "python", "casts.py"]
 EXPOSE 8000
-CMD [ "uvicorn", "pricing_server:app", "--host", "0.0.0.0", "--port", "8080"]
+ENTRYPOINT [ ]
+CMD ["uvicorn", "pricing_server:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# CMD [ "uvicorn", "pricing_server:app"]
+# CMD [ "python", "pricing_server.py" ]         # same,
