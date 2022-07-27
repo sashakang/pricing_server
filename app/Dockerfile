@@ -3,7 +3,8 @@
 FROM python:3.9.5
 
 # build from `app` folder
-WORKDIR /SynologyDrive/dikart/pricing/docker/app/
+# WORKDIR /SynologyDrive/dikart/pricing/docker/app/
+WORKDIR /app
 
 COPY requirements.txt requirements.txt
 
@@ -38,6 +39,6 @@ COPY ../.. .
 #CMD [ "python", "casts.py"]
 EXPOSE 8000
 ENTRYPOINT [ ]
-CMD ["uvicorn", "pricing_server:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "pricing_server:app", "--host", "0.0.0.0", "--port", "8000"]
 # CMD [ "uvicorn", "pricing_server:app"]
 # CMD [ "python", "pricing_server.py" ]         # same,

@@ -2,6 +2,7 @@ import pandas as pd
 import sqlalchemy
 # import time
 import os
+from services import get_engine
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 200)
@@ -29,21 +30,8 @@ def main():
     # time.sleep(60)
 
     try:
-        fname = 'server.txt'
-        for root, dirs, files in os.walk('..'):
-            if fname in files:
-                path = os.path.join(root, fname)
-                print(f'{path=}') 
-        with open(path, 'r') as f:
-            server = f.readline().split()[1]
-            login = f.readline().split()[1]
-            password = f.readline().split()[1]
-            print(f'{server=}\n{login=}')
-
-        engine = sqlalchemy.create_engine(
-            f'mssql+pyodbc://{login}:{password}@{server}/'
-            'PROD_UNF?driver=ODBC Driver 17 for SQL Server'
-        )
+        fname = '../credentials/.prod_unf'
+        engine = get_engine(fname, 'prod_unf')
 
         punches = pd.read_sql('''
             -- all items
@@ -66,7 +54,7 @@ def main():
         print(punches.head())
 
     except:
-        print('`server.txt` not found')
+        print('credentials not found')
 
 # time.sleep(90)
 
