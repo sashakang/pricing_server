@@ -1,53 +1,34 @@
-# Build
-
-Build. Run from `/app` directory.
-
-`docker build -t casts .`
-
-# Run
-Run container with binding `pwd`. Run from `docker` directory.
-
-` docker run -v "$(pwd):\\SynologyDrive\\dikart\\pricing\\docker" -it --rm --name casts casts`
-
-On server from `pricing` folder (ALSO WORKS FROM LOCAL CONTAINER from `app` folder):  
-
-`docker run -v "$(pwd):/app" -it -p 8000:8000 --rm --name pricing sashakang/pricing`
-
-Server responds with `ERR_EMPTY_RESPONSE`
-
-Not sure about `-it` switch. Works without it at all.  
-`-t` stands for pseudo-Putty, not relevant?  
-`-i` may be relevant. Find it out.
-
-`docker exec casts sh` doesn't work though.
-
 # uvicorn
 `uvicorn pricing_server:app --reload`
 
-# Push
+# Build
 
-https://stackoverflow.com/questions/41984399/denied-requested-access-to-the-resource-is-denied-docker.  
-TL&DR  
-1. `docker logout`
-2. `docker login`
-3. `docker tag [source name] [acc name]/[image name]`  
-	i.e. `docker tag casts sashakang/pricing`
-4. `docker push sashakang/[image name]:[optional tag name]`  
-
-This one seems to work:  
-`cd app `  
+From `app` folder:  
 `docker build -t casts .`  
-`cd .. `  
-or  
+
+or from `docker` folder:
 `docker build -t casts app`
 
 then  
-`docker run -v "$(pwd):/app" -it --rm --name casts casts`
+`docker run -v "$(pwd)/credentials:/credentials" -it --rm sashakang/pricing`
 
-Credentials stored in a separate `credentials` folder and are not pushed to `dockerhub`. Still need to confirm this.  
+Credentials stored in a separate `credentials` folder and are not pushed to `dockerhub`.   
 DB requests gets access to it and successfully executes the query.
 
-### deamon not running error
+# Push
+
+If access denied logout then login:
+
+https://stackoverflow.com/questions/41984399/denied-requested-access-to-the-resource-is-denied-docker.  
+TL&DR  
+1. *optional* `docker logout`
+2. *optional* `docker login`
+3. *optional* `docker tag [source name] [acc name]/[image name]`,  
+	i.e. `docker tag casts sashakang/pricing`.
+4. `docker push sashakang/[image name]:[optional tag name]`,  
+   i.e. `docker push sashakang/pricing`.
+
+# `deamon not running error`
 
 Run `& 'c:\Program Files\Docker\Docker\DockerCli.exe' -SwitchDaemon` in pwsh in administrative mode.  
 Then `Enable-WindowsOptionalFeature -Online -FeatureName $("Microsoft-Hyper-V", "Containers") -All` and restart.  
@@ -60,12 +41,14 @@ Net start com.docker.service
 ```  
 and restart the client.
 
-### Docker-compose  
+# Docker-compose  
 
 No need for it yet.
 
-### Next steps:  
-- ~~run credentials from a file with docker~~
-- ~~publish image @dockerhub without credentials~~
-- ~~pull image to data server and run it ~~
-- use volume, not mount
+# Volume
+
+Create a volume:  
+`docker volume create analytics-vol`.
+
+On Windows docker volume data location (type in file browser):  
+`\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\[volume_name]\_data\`.
