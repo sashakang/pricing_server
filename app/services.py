@@ -4,8 +4,7 @@ import urllib.parse
 
 # TODO: remove `db` from function call, it shall be defined in the file
 def get_engine(
-    fname: str,
-    db: str  
+    fname: str
 ) -> engine.base.Engine:
     with open(fname, 'r') as f:
         for line in f:
@@ -16,12 +15,15 @@ def get_engine(
             if vals[0] == 'server': 
                 server = vals[1]
                 continue
+            if vals[0] == 'db': 
+                db = vals[1]
+                continue            
             if vals[0] == 'login': 
                 login = vals[1]
                 continue
             if vals[0] == 'password':  
                 password = urllib.parse.quote_plus(vals[1])
-                print(f'{password=}')
+                # print(f'{password=}')
                 continue
     
     if not (server and login and password):
@@ -29,7 +31,7 @@ def get_engine(
 
     # db_str = f'/{db}' if db else ''
     
-    print(f'{password=}')
+    # print(f'{password=}')
     
     engine = create_engine(
         f'mssql+pyodbc://{login}:{password}@{server}/{db}'

@@ -9,6 +9,7 @@ from services import get_engine
 import os
 from casts import main as main_
 from sqlalchemy import create_engine
+from spartak_report import write_spartak_data
 
 
 class Item(BaseModel):
@@ -21,14 +22,19 @@ class Item(BaseModel):
 app = FastAPI(debug=True)
 
 
+@app.get("/spartak")
+def write_spartak():
+    write_spartak_data()
+    print(dt.strftime(dt.now(), "%d/%m/%y %H:%M:%S") + "+03:00")
+    return "Spartak data been written successfully."
+
 @app.get("/test")
 def testing():
     print('Got TEST')
     print(f'{os.getcwd()=}')
 
     engine = get_engine(
-        fname='../credentials/.prod_unf',
-        db='prod_unf'
+        fname='../credentials/.prod_unf'
     )
     print(engine)
     punches = pd.read_sql('''
