@@ -9,11 +9,21 @@ From `app` folder:
 or from `docker` folder:
 `docker build -t casts app`
 
-then  
+# Run
+
 `docker run -v "$(pwd)/credentials:/credentials" -it --rm sashakang/pricing`
 
 Credentials stored in a separate `credentials` folder and are not pushed to `dockerhub`.   
 DB requests gets access to it and successfully executes the query.
+
+## Run using container
+
+Local container files stored in  
+`\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes\pricing-vol\_data\`.  
+Copy `credentials` folder contents there.
+
+Run using volume:  
+`docker run -v pricing-vol:/credentials -it -p 8000:8000 --rm sashakang/pricing`
 
 # Push
 
