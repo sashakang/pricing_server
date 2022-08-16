@@ -178,4 +178,4 @@ if __name__ == '__main__':
     print('Timestamp:', dt.strftime(dt.now(), "%d/%m/%y %H:%M:%S") + "+03:00")
     main_()
 
-    uvicorn.run('pricing_server:app', host='127.0.0.1', reload=True)
+    uvicorn.run('pricing_server:app', host='127.0.0.1', reload=False)
