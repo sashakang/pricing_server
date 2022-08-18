@@ -4,10 +4,10 @@
 # Build
 
 From `app` folder:  
-`docker build -t casts .`  
+`docker build -t sashakang/pricing .`  
 
 or from `docker` folder:
-`docker build -t casts app`
+`docker build -t sashakang/pricing app`
 
 # Run
 
